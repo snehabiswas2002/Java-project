@@ -1,0 +1,174 @@
+package retailstoreapp;
+
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+class RetailStoreManagementSystem {
+    private Map<String, Product> products;
+
+    public RetailStoreManagementSystem() {
+        this.products = new HashMap<>();
+    }
+
+    public void addProduct(String productId, String productName, double price, int quantity) {
+        Product product = new Product(productName, price, quantity);
+        products.put(productId, product);
+        System.out.println("Product added successfully.");
+    }
+
+    public void updateProduct(String productId, String productName, double price, int quantity) {
+        if (products.containsKey(productId)) {
+            Product product = products.get(productId);
+            product.setProductName(productName);
+            product.setPrice(price);
+            product.setQuantity(quantity);
+            System.out.println("Product updated successfully.");
+        } else {
+            System.out.println("Product not found.");
+        }
+    }
+
+    public void removeProduct(String productId) {
+        if (products.containsKey(productId)) {
+            products.remove(productId);
+            System.out.println("Product removed successfully.");
+        } else {
+            System.out.println("Product not found.");
+        }
+    }
+
+    public void recordSale(String productId, int quantitySold) {
+        if (products.containsKey(productId)) {
+            Product product = products.get(productId);
+            if (product.getQuantity() >= quantitySold) {
+                product.sell(quantitySold);
+                System.out.println("Sale recorded successfully.");
+            } else {
+                System.out.println("Not enough stock available for sale.");
+            }
+        } else {
+            System.out.println("Product not found.");
+        }
+    }
+
+    public void generateReport() {
+        System.out.println("Sales Report:");
+        System.out.printf("%-15s%-20s%-10s%-10s\n", "Product ID", "Product Name", "Price", "Quantity");
+        for (Map.Entry<String, Product> entry : products.entrySet()) {
+            Product product = entry.getValue();
+            System.out.printf("%-15s%-20s%-10.2f%-10d\n", entry.getKey(), product.getProductName(),
+                    product.getPrice(), product.getQuantity());
+        }
+    }
+}
+
+class Product {
+    private String productName;
+    private double price;
+    private int quantity;
+
+    public Product(String productName, double price, int quantity) {
+        this.productName = productName;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void sell(int quantitySold) {
+        if (quantity >= quantitySold) {
+            quantity -= quantitySold;
+        }
+    }
+}
+
+public class RetailStoreApp {
+    public static void main(String[] args) {
+        RetailStoreManagementSystem system = new RetailStoreManagementSystem();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nRetail Store Management System");
+            System.out.println("1. Add Product");
+            System.out.println("2. Update Product");
+            System.out.println("3. Remove Product");
+            System.out.println("4. Record Sale");
+            System.out.println("5. Generate Report");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume the newline character
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Product ID: ");
+                    String productId = scanner.nextLine();
+                    System.out.print("Enter Product Name: ");
+                    String productName = scanner.nextLine();
+                    System.out.print("Enter Price: ");
+                    double price = scanner.nextDouble();
+                    System.out.print("Enter Quantity: ");
+                    int quantity = scanner.nextInt();
+                    system.addProduct(productId, productName, price, quantity);
+                    break;
+                case 2:
+                    System.out.print("Enter Product ID: ");
+                    productId = scanner.nextLine();
+                    System.out.print("Enter New Product Name: ");
+                    productName = scanner.nextLine();
+                    System.out.print("Enter New Price: ");
+                    price = scanner.nextDouble();
+                    System.out.print("Enter New Quantity: ");
+                    quantity = scanner.nextInt();
+                    system.updateProduct(productId, productName, price, quantity);
+                    break;
+                case 3:
+                    System.out.print("Enter Product ID to Remove: ");
+                    productId = scanner.nextLine();
+                    system.removeProduct(productId);
+                    break;
+                case 4:
+                    System.out.print("Enter Product ID for Sale: ");
+                    productId = scanner.nextLine();
+                    System.out.print("Enter Quantity Sold: ");
+                    quantity = scanner.nextInt();
+                    system.recordSale(productId, quantity);
+                    break;
+                case 5:
+                    system.generateReport();
+                    break;
+                case 6:
+                    System.out.println("Exiting Retail Store Management System. Goodbye!");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option.");
+            }
+        }
+    }
+}
