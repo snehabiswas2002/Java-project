@@ -129,3 +129,49 @@ public class Main {
         }
     }
 }
+
+Output
+Expense Tracker Menu:
+1. Log Expense
+2. Set Budget
+3. Visualize Expenses
+4. Remind on Due Bills
+5. Alert on Overspending
+6. Exit
+Enter your choice: 1
+Enter expense category: dgh
+Enter expense amount: 345
+Enter expense date: 14 jan
+Expense logged successfully!
+
+Expense Tracker Menu:
+1. Log Expense
+2. Set Budget
+3. Visualize Expenses
+4. Remind on Due Bills
+5. Alert on Overspending
+6. Exit
+Enter your choice: 2
+Enter category to set budget for: 234
+Enter budget amount: 1000
+Budget set successfully!
+
+Expense Tracker Menu:
+1. Log Expense
+2. Set Budget
+3. Visualize Expenses
+4. Remind on Due Bills
+5. Alert on Overspending
+6. Exit
+Enter your choice: 3
+Visualization of expenses coming soon!
+
+Expense Tracker Menu:
+1. Log Expense
+2. Set Budget
+3. Visualize Expenses
+4. Remind on Due Bills
+5. Alert on Overspending
+6. Exit
+Enter your choice: 6
+Exiting Expense Tracker. Goodbye!
